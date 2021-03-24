@@ -1,20 +1,22 @@
 import 'package:flutter_web/common/compilationSubject.dart';
 
 class Course {
-  static final Map<String, int> ABEEKProcess = {
+  static final Map<String, double> ABEEKProcess = {
     //ABEEK 구분
-    '전문교양': 0,
-    '인증필수': 0,
-    '인증선택': 0,
-    'BSM': 0,
+    '전문교양': 6, //일반물리학입문(3학점), 기초수학(3학점)
+    '인증필수': 37,
+    '인증선택': 23,
+    'BSM': 12,
     '공학소양': 4
   };
 
-  static final Map<String, int> completionProcess = {
+  static final Map<String, double> completionProcess = {
     //이수 구분
-    '공통교양': 19,
+    '공통교양': 19, //과목수로 확인해야함
+    '균형교양': 8,
+    '자율교양': 6, //공학소양 포함
     '전공필수': 21,
-    '전공선택': 60
+    '전공선택': 60, //=전공심화
   };
 
   static final Map<String, List<String>> antecedentSubject = {
@@ -33,7 +35,14 @@ class Course {
   };
 
   static final List<CompilationSubject> subjects = [
-    //편성 과목
+    ///편성과목(과목명, 과목번호, 인증구분, 이수구분, 추천 이수 학년, 학점, 편성 학기)
+
+    //공학소양
+    CompilationSubject('직업과윤리', 123456, '공학소양', '자율교양', 0, 2, 0),
+    CompilationSubject('기술과 경영', 123456, '공학소양', '자율교양', 0, 2, 0),
+
+
+
     //1-1
     CompilationSubject('콜라보인성의이해', 100129, '전문교양', '공통교양', 1, 1, 1),
     CompilationSubject('기본영어', 100108, '전문교양', '공통교양', 1, 3, 1),
@@ -41,6 +50,8 @@ class Course {
     CompilationSubject('전공탐색과생애설계 1-1', 100111, '전문교양', '공통교양', 1, 1, 1),
     CompilationSubject('컴퓨터개론', 400506, '인증필수', '전공필수', 1, 3, 1),
     CompilationSubject('프로그래밍실습1', 401428, '인증필수', '전공필수', 1, 3, 1),
+    CompilationSubject('일반물리학입문', 400359, 'BSM', '전문교양', 1, 3, 1),
+    CompilationSubject('기초수학', 401976, 'BSM', '전문교양', 1, 3, 1),
 
     //1-2
     CompilationSubject('영어회화', 100030, '전문교양', '공통교양', 2, 3, 1),
@@ -53,7 +64,8 @@ class Course {
     //2-1
     CompilationSubject('전공탐색과진로설계2-1', 100113, '전문교양', '공통교양', 1, 0.5, 2),
     CompilationSubject('데이터구조', 400650, '인증필수', '전공필수', 1, 3, 2),
-    CompilationSubject('공학설계입문', 400798, '인증필수', '전공필수', 1, 3, 2), //3학점 맞음? 3(2)로 되있던데
+    CompilationSubject(
+        '공학설계입문', 400798, '인증필수', '전공필수', 1, 3, 2), //3학점 맞음? 3(2)로 되있던데
     CompilationSubject('생명과학개론', 400253, 'BSM', '전공선택', 1, 3, 2),
     CompilationSubject('컴퓨터그래픽스', 504779, '인증선택', '전공선택', 1, 3, 2),
     CompilationSubject('객체지향프로그래밍1', 505510, '인증선택', '전공선택', 1, 3, 2),

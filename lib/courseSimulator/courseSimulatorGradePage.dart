@@ -10,7 +10,11 @@ class CourseSimulatorGradePage extends StatelessWidget {
 
   CourseSimulatorGradePage({Key key, this.courseBloc, this.selectedGrade});
 
-  Widget subjectCard(CompilationSubject item, bool selected) {
+  Widget subjectCard(CompilationSubject item, int selectedSemester) {
+    bool selected = true;
+    if (item.selectedGrade == 0 || item.selectedSemester == 0) {
+      selected = false;
+    }
     return Container(
       margin: EdgeInsets.all(10.0),
       child: InkWell(
@@ -80,7 +84,7 @@ class CourseSimulatorGradePage extends StatelessWidget {
             if (selected) {
               courseBloc.unselectSubject(item);
             } else {
-              courseBloc.selectSubject(item);
+              courseBloc.selectSubject(item, selectedGrade, selectedSemester);
             }
           }
         },
@@ -90,14 +94,84 @@ class CourseSimulatorGradePage extends StatelessWidget {
 
   List<Widget> buildSubjectCardList(Map data, int semester) {
     List<Widget> _subjectCards = [];
-    for (CompilationSubject key in data.keys) {
-      if (key.recommendedGrade == selectedGrade &&
-          (key.semester == 0 || key.semester == semester)) {
-        Widget _card = subjectCard(key, data[key]);
-        _subjectCards.add(_card);
+    for (CompilationSubject item in data.values) {
+      if ((item.recommendedGrade == selectedGrade ||
+              item.recommendedGrade == 0) &&
+          (item.semester == 0 || item.semester == semester)) {
+        if (item.selectedGrade != 0 && item.selectedSemester != 0) {
+          if (item.selectedGrade == selectedGrade &&
+              item.selectedSemester == semester) {
+            Widget _card = subjectCard(item, semester);
+            _subjectCards.add(_card);
+          }
+        } else {
+          Widget _card = subjectCard(item, semester);
+          _subjectCards.add(_card);
+        }
       }
     }
     return _subjectCards;
+  }
+
+  List<Widget> buildScoreList(Map data, Map ref) {
+    List<Widget> _result = [];
+    for (String _key in ref.keys) {
+      Text _item = new Text(
+        '$_key ${data[_key]}/${ref[_key]} 학점',
+        style: TextStyle(
+            color: (data[_key] - ref[_key]) >= 0 ? Colors.green : Colors.red),
+      );
+      _result.add(_item);
+    }
+    return _result;
+  }
+
+  Widget scoreCard(BuildContext context) {
+    return StreamBuilder(
+        stream: courseBloc.scoreStream,
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? Container(
+                  padding: EdgeInsets.fromLTRB(55.0, 25.0, 25.0, 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          Text(
+                            '공학인증 요구 조건',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Wrap(
+                            spacing: 15.0,
+                            children: buildScoreList(
+                                snapshot.data, Course.ABEEKProcess),
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            '졸업 요구 조건',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Wrap(
+                            spacing: 15.0,
+                            children: buildScoreList(
+                                snapshot.data, Course.completionProcess),
+                          )
+                        ],
+                      ),
+                      ElevatedButton(
+                          onPressed: courseBloc.calculate, child: Text('새로고침')),
+                      ElevatedButton(
+                          onPressed: courseBloc.initCourseBloc,
+                          child: Text('선택 초기화')),
+                    ],
+                  ),
+                )
+              : Container();
+        });
   }
 
   @override
@@ -112,6 +186,8 @@ class CourseSimulatorGradePage extends StatelessWidget {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      scoreCard(context),
+                      Divider(),
                       Container(
                         padding: EdgeInsets.fromLTRB(55.0, 25.0, 25.0, 0.0),
                         alignment: Alignment.centerLeft,

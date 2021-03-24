@@ -29,6 +29,8 @@ class _CourseSimulatorState extends State<CourseSimulator>
           title: Text('Course Build Simulator',
               style: TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold)),
+          subtitle: Text('* 17학번부터 적용'),
+          /*
           trailing: Wrap(
             children: [
               Text('공통교양: -19.00점\t'),
@@ -39,6 +41,7 @@ class _CourseSimulatorState extends State<CourseSimulator>
               Text('졸업 요구: -140.00점'),
             ],
           ),
+           */
         ),
         bottom: TabBar(controller: _tabController, tabs: [
           Tab(
