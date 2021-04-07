@@ -119,6 +119,7 @@ class CourseSimulatorGradePage extends StatelessWidget {
       Text _item = new Text(
         '$_key ${data[_key]}/${ref[_key]} 학점',
         style: TextStyle(
+          fontSize: 15.0,
             color: (data[_key] - ref[_key]) >= 0 ? Colors.green : Colors.red),
       );
       _result.add(_item);
@@ -140,7 +141,7 @@ class CourseSimulatorGradePage extends StatelessWidget {
                         children: [
                           Text(
                             '공학인증 요구 조건',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                           ),
                           Wrap(
                             spacing: 15.0,
@@ -153,7 +154,7 @@ class CourseSimulatorGradePage extends StatelessWidget {
                         children: [
                           Text(
                             '졸업 요구 조건',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                           ),
                           Wrap(
                             spacing: 15.0,
@@ -163,10 +164,19 @@ class CourseSimulatorGradePage extends StatelessWidget {
                         ],
                       ),
                       ElevatedButton(
-                          onPressed: courseBloc.calculate, child: Text('새로고침')),
+                        onPressed: courseBloc.calculate,
+                        child: Container(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text('새로고침'),
+                        ),
+                      ),
                       ElevatedButton(
-                          onPressed: courseBloc.initCourseBloc,
-                          child: Text('선택 초기화')),
+                        onPressed: courseBloc.initCourseBloc,
+                        child: Container(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text('전체 초기화'),
+                        ),
+                      ),
                     ],
                   ),
                 )

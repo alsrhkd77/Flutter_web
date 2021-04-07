@@ -39,19 +39,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController _tabController;
-  int _counter = 0;
 
 
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(length: 2, vsync: this);
-  }
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
   }
 
   Future<void> addFile() async {
@@ -70,13 +63,18 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     return Scaffold(
       appBar: BlankAppBar(),
       body: Center(
-        child: ElevatedButton(
-          child: Text('Start'),
-          onPressed: (){
-            Navigator.of(context).pushNamed('course_simulator');
-          },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              child: Text('수강 빌드 시뮬레이터'),
+              onPressed: (){
+                Navigator.of(context).pushNamed('course_simulator');
+              },
+            ),
+          ],
         ),
-      ),
+      )
     );
   }
 }

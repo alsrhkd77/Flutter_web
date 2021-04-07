@@ -19,6 +19,14 @@ class Course {
     '전공선택': 60, //=전공심화
   };
 
+  static final Map<String, int> semester = {
+    '1학기': 1,
+    '2학기' : 2,
+    '여름 계절학기': 1,
+    '겨울 계절학기': 2,
+    '상시': 0,
+  };
+
   static final Map<String, List<String>> antecedentSubject = {
     //선행 과목
     '컴퓨터구조이론및실습': ['이산수학'],
@@ -39,7 +47,7 @@ class Course {
 
     //공학소양
     CompilationSubject('직업과윤리', 123456, '공학소양', '자율교양', 0, 2, 0),
-    CompilationSubject('기술과 경영', 123456, '공학소양', '자율교양', 0, 2, 0),
+    CompilationSubject('기술과경영', 123456, '공학소양', '자율교양', 0, 2, 0),
 
 
 
