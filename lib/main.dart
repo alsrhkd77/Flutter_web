@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web/blankAppBar.dart';
 import 'package:flutter_web/courseSimulator/courseSimulator.dart';
+import 'package:flutter_web/courseSimulator/courseSimulatorResultPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'home':(context) => MyHomePage(),
         'course_simulator':(context) => CourseSimulator(),
+        'course_simulate_result':(context) => CourseSimulatorResultPage(args: ModalRoute.of(context).settings.arguments,),
       },
     );
   }

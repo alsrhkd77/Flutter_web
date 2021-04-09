@@ -34,26 +34,6 @@ class _CourseSimulatorState extends State<CourseSimulator>
               style:
                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
           subtitle: Text('* 17학번부터 적용'),
-          trailing: OutlinedButton(
-            child: Container(
-              padding: EdgeInsets.all(8.0),
-              child: Text('완 료'),
-            ),
-            onPressed: () {
-              List<List<List<CompilationSubject>>> _list;
-              Map<String, double> _score;
-              _list = courseBloc.getResultSubject();
-              _score = courseBloc.getResultScore();
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          CourseSimulatorResultPage(
-                            courseList: _list,
-                            score: _score,
-                          )));
-            },
-          ),
           /*
           trailing: Wrap(
             children: [
@@ -67,6 +47,22 @@ class _CourseSimulatorState extends State<CourseSimulator>
           ),
            */
         ),
+
+        actions: [
+          OutlinedButton(
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              child: Text('완 료'),
+            ),
+            onPressed: () {
+              List<List<List<CompilationSubject>>> _list;
+              Map<String, double> _score;
+              _list = courseBloc.getResultSubject();
+              _score = courseBloc.getResultScore();
+              Navigator.of(context).pushNamed('course_simulate_result', arguments: courseBloc);
+            },
+          ),
+        ],
         bottom: TabBar(controller: _tabController, tabs: [
           Tab(
             child: Text(

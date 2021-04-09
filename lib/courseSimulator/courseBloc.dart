@@ -129,6 +129,16 @@ class CourseBloc {
     return result;
   }
 
+  List getCreditsByGrade(){
+    List<List<double>> result = [[0,0],[0,0],[0,0],[0,0]];
+    for(CompilationSubject _subject in _selected.values){
+      if(_subject.selectedGrade != 0 && _subject.selectedSemester != 0){
+        result[_subject.selectedGrade - 1][_subject.selectedSemester - 1] += _subject.credit;
+      }
+    }
+    return result;
+  }
+
   Map getResultScore(){
     return _score;
   }

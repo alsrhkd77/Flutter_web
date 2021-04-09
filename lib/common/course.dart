@@ -49,8 +49,6 @@ class Course {
     CompilationSubject('직업과윤리', 123456, '공학소양', '자율교양', 0, 2, 0),
     CompilationSubject('기술과경영', 123456, '공학소양', '자율교양', 0, 2, 0),
 
-
-
     //1-1
     CompilationSubject('콜라보인성의이해', 100129, '전문교양', '공통교양', 1, 1, 1),
     CompilationSubject('기본영어', 100108, '전문교양', '공통교양', 1, 3, 1),
