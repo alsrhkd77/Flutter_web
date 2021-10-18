@@ -1,6 +1,6 @@
 # flutter_web
 
-A new Flutter Web project.
+수강 신청 빌드 시뮬레이터
 
 ## Getting Started
 
